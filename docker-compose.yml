@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: headlines_db
+    restart: always
+    environment:
+      POSTGRES_USER: _____
+      POSTGRES_PASSWORD: _____
+      POSTGRES_DB: headlines_news
+    ports:
+      - "0000:0000"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  bot:
+    build: .
+    container_name: headlines_bot
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_USER: postgres
+      DB_PASSWORD: _____
+      DB_NAME: headlines_news
+    command: ["python", "bot.py"]
+
+volumes:
+  postgres_data:
