@@ -20,7 +20,7 @@ async def update_news():
 
 async def on_startup():
     scheduler = AsyncIOScheduler()
-    scheduler.add_job(update_news, 'interval', minutes=1)
+    scheduler.add_job(update_news, 'interval', minutes=5)
     scheduler.start()
     await update_news()
 
